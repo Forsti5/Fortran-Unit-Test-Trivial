@@ -18,4 +18,4 @@ ctest --verbose
 
 profmerge *.dyn
 cd reports
-codecov -prj Fortran-CodeCoverage -spi ../pgopti.spi -dpi pgopti.dpi
+codecov -prj Fortran-CodeCoverage -spi ../pgopti.spi -dpi pgopti.dpi -comp ../../comp_file.txt
