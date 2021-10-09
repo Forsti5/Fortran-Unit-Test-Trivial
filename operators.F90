@@ -17,7 +17,7 @@ contains
 
       res = value1 + value2
 
-   end subroutine
+   end subroutine add_numbers
    
    subroutine subtract_numbers(value1, value2, res)
 
@@ -27,6 +27,6 @@ contains
 
       res = value1 - value2
 
-   end subroutine
+   end subroutine subtract_numbers
 
 end module
