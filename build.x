@@ -18,4 +18,4 @@ ctest --verbose
 
 profmerge *.dyn
 cd coverage
-codecov -prj Fortran-CodeCoverage -spi ../pgopti.spi -dpi pgopti.dpi -comp ../../comp_file.txt
+codecov -prj Fortran-CodeCoverage -spi ../pgopti.spi -dpi pgopti.dpi -comp ../../comp_file.txt -ccolor '#d7fad2'
