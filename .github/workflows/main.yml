@@ -14,7 +14,6 @@ jobs:
     
     env:
       FC: gfortran-9
-      CC: icc
       PFUNIT_DIR: /home/runner/work/Fortran-CodeCoverage/Fortran-CodeCoverage/pFUnit/build/installed/PFUNIT-4.2    
     
     name: gfortran
@@ -40,7 +39,7 @@ jobs:
           cmake .. -DCMAKE_PREFIX_PATH=$PFUNIT_DIR
           make -j$(nproc)
           
-      - name: Tests and coverage
+      - name: Tests
         run: |
           cd build
           ctest --verbose
