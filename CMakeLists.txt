@@ -7,7 +7,9 @@ project (Fortran-CodeCoverage
 find_package(PFUNIT REQUIRED)
 enable_testing()
 
-add_compile_options(-prof-gen=srcpos)
+if(CMAKE_Fortran_COMPILER_ID MATCHES Intel)
+   add_compile_options(-prof-gen=srcpos)
+endif()
 
 add_library(operators
   operators.F90
