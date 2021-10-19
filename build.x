@@ -17,11 +17,8 @@ make -j
 
 if [[ $PFUNIT_TEST = "TRUE" ]]
 then
-  if [[ $FC = "ifort" ]]
-  then
-    export PROF_DIR=./coverage
-    mkdir -p coverage
-  fi
+  export PROF_DIR=./coverage
+  mkdir -p coverage
 
   ctest --verbose
 
