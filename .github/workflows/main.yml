@@ -9,6 +9,42 @@ on:
   workflow_dispatch:
 
 jobs:
+  GNU:
+    runs-on: ubuntu-20.04
+    
+    env:
+      FC: gfortran-9
+      CC: icc
+      PFUNIT_DIR: /home/runner/work/Fortran-CodeCoverage/Fortran-CodeCoverage/pFUnit/build/installed/PFUNIT-4.2    
+    
+    name: gfortran
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Install pFUnit
+        run: |
+          git clone https://github.com/Goddard-Fortran-Ecosystem/pFUnit
+          cd pFUnit
+          mkdir -p build
+          cd build
+          cmake ..
+          make -j$(nproc)
+          make tests
+          make install
+          
+      - name: Build
+        run: |
+          mkdir -p build
+          cd build
+          cmake .. -DCMAKE_PREFIX_PATH=$PFUNIT_DIR
+          make -j$(nproc)
+          
+      - name: Tests and coverage
+        run: |
+          cd build
+          ctest --verbose
+  
   Intel:
     runs-on: ubuntu-20.04
     
