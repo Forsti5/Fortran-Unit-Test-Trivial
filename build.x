@@ -5,8 +5,6 @@ then
     rm -rf build
 fi
 
-export PFUNIT_TEST=TRUE
-
 mkdir -p build
 cd build
 if [[ $PFUNIT_TEST = "TRUE" ]]
