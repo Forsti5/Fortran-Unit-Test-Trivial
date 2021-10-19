@@ -15,7 +15,7 @@ jobs:
     env:
       FC: gfortran-9
       PFUNIT_DIR: /home/runner/work/Fortran-CodeCoverage/Fortran-CodeCoverage/pFUnit/build/installed/PFUNIT-4.2
-      PFUNIT_TEST: TRUE
+      PFUNIT_TEST: "TRUE"
     
     name: gfortran
     steps:
@@ -52,7 +52,7 @@ jobs:
       FC: ifort
       CC: icc
       PFUNIT_DIR: /home/runner/work/Fortran-CodeCoverage/Fortran-CodeCoverage/pFUnit/build/installed/PFUNIT-4.2
-      PFUNIT_TEST: TRUE
+      PFUNIT_TEST: "TRUE"
     
     name: Intel Fortran
     steps:
