@@ -10,6 +10,7 @@ export FC=ifort
 mkdir -p build
 cd build
 cmake .. -DCMAKE_PREFIX_PATH=$PFUNIT_DIR
+cmake ..
 make -j
 
 export PROF_DIR=./coverage

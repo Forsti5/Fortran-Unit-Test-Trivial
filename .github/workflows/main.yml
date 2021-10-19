@@ -1,0 +1,105 @@
+name: CI
+
+on:
+  #push:
+  #  branches: [ main ]
+  #pull_request:
+  #  branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  GNU:
+    runs-on: ubuntu-20.04
+    
+    env:
+      FC: gfortran-9
+      CC: icc
+      PFUNIT_DIR: /home/runner/work/Fortran-CodeCoverage/Fortran-CodeCoverage/pFUnit/build/installed/PFUNIT-4.2    
+    
+    name: gfortran
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Install pFUnit
+        run: |
+          git clone https://github.com/Goddard-Fortran-Ecosystem/pFUnit
+          cd pFUnit
+          mkdir -p build
+          cd build
+          cmake ..
+          make -j$(nproc)
+          make tests
+          make install
+          
+      - name: Build
+        run: |
+          mkdir -p build
+          cd build
+          cmake .. -DCMAKE_PREFIX_PATH=$PFUNIT_DIR
+          make -j$(nproc)
+          
+      - name: Tests and coverage
+        run: |
+          cd build
+          ctest --verbose
+  
+  Intel:
+    runs-on: ubuntu-20.04
+    
+    env:
+      FC: ifort
+      CC: icc
+      PFUNIT_DIR: /home/runner/work/Fortran-CodeCoverage/Fortran-CodeCoverage/pFUnit/build/installed/PFUNIT-4.2
+    
+    name: Intel Fortran
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Intel compilers
+        run: |
+          cd /tmp
+          wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+          sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+          rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+          sudo add-apt-repository "deb https://apt.repos.intel.com/oneapi all main"
+          sudo apt install --no-install-recommends intel-oneapi-compiler-fortran intel-oneapi-mpi \
+            intel-oneapi-compiler-dpcpp-cpp-and-cpp-classic intel-oneapi-mpi-devel
+          source /opt/intel/oneapi/setvars.sh
+          printenv >> $GITHUB_ENV
+      
+      - name: Versions
+        run: |
+          ${FC} --version
+          ${CC} --version
+          
+      - name: Install pFUnit
+        run: |
+          git clone https://github.com/Goddard-Fortran-Ecosystem/pFUnit
+          cd pFUnit
+          mkdir -p build
+          cd build
+          cmake ..
+          make -j$(nproc)
+          make tests
+          make install
+          
+      - name: Build
+        run: |
+          mkdir -p build
+          cd build
+          cmake .. -DCMAKE_PREFIX_PATH=$PFUNIT_DIR
+          make -j$(nproc)
+          
+      - name: Tests and coverage
+        run: |
+          cd build
+          export PROF_DIR=./coverage
+          mkdir -p coverage
+          ctest --verbose
+
+          profmerge *.dyn
+          cd coverage
+          codecov -prj Fortran-CodeCoverage -spi ../pgopti.spi -dpi pgopti.dpi -comp ../../comp_file.txt -ccolor '#d7fad2'
