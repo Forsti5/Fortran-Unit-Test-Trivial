@@ -57,6 +57,9 @@ jobs:
           cmake .. -DCMAKE_PREFIX_PATH=$PFUNIT_DIR
           make -j$(nproc)
           
+      - name: Tests and coverage
+        run: |
+          cd build
           export PROF_DIR=./coverage
           mkdir -p coverage
           ctest --verbose
