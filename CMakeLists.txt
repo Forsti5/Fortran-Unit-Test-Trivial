@@ -4,8 +4,10 @@ project (Fortran-CodeCoverage
   VERSION 1.0.0
   LANGUAGES Fortran)
 
-find_package(PFUNIT REQUIRED)
-enable_testing()
+if("$ENV{PFUNIT_TEST}" STREQUAL "TRUE")
+    find_package(PFUNIT REQUIRED)
+    enable_testing()
+endif()
 
 if(CMAKE_Fortran_COMPILER_ID MATCHES Intel)
    add_compile_options(-prof-gen=srcpos)
@@ -20,8 +22,9 @@ set_target_properties (operators PROPERTIES
   
 target_include_directories(operators PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 
+if("$ENV{PFUNIT_TEST}" STREQUAL "TRUE")
 add_pfunit_ctest (test_operators
-  TEST_SOURCES test_operators.F90
-  LINK_LIBRARIES operators
-  )
-
+ TEST_SOURCES test_operators.F90
+ LINK_LIBRARIES operators
+ )
+endif()
