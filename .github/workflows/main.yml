@@ -14,7 +14,6 @@ jobs:
     
     env:
       FC: gfortran-9
-      CC: icc
       PFUNIT_DIR: /home/runner/work/Fortran-CodeCoverage/Fortran-CodeCoverage/pFUnit/build/installed/PFUNIT-4.2    
     
     name: gfortran
