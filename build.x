@@ -9,14 +9,14 @@ export FC=ifort
 
 mkdir -p build
 cd build
-#cmake .. -DCMAKE_PREFIX_PATH=$PFUNIT_DIR
+cmake .. -DCMAKE_PREFIX_PATH=$PFUNIT_DIR
 cmake ..
 make -j
 
-#export PROF_DIR=./coverage
-#mkdir -p coverage
-#ctest --verbose
+export PROF_DIR=./coverage
+mkdir -p coverage
+ctest --verbose
 
-#profmerge *.dyn
-#cd coverage
-#codecov -prj Fortran-CodeCoverage -spi ../pgopti.spi -dpi pgopti.dpi -comp ../../comp_file.txt -ccolor '#d7fad2'
+profmerge *.dyn
+cd coverage
+codecov -prj Fortran-CodeCoverage -spi ../pgopti.spi -dpi pgopti.dpi -comp ../../comp_file.txt -ccolor '#d7fad2'
