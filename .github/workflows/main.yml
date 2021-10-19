@@ -37,6 +37,17 @@ jobs:
           ${FC} --version
           ${CC} --version
           
+      - name: Install pFUnit
+        run: |
+          git clone https://github.com/Goddard-Fortran-Ecosystem/pFUnit
+          cd pFUnit
+          mkdir -p build
+          cd build
+          cmake ..
+          make -j$(nproc)
+          make tests
+          make install
+          
       - name: Build
         run: |
           mkdir -p build
