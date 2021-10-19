@@ -15,7 +15,7 @@ jobs:
     env:
       FC: ifort
       CC: icc
-      PFUNIT_DIR: $HOME/pFUnit/build/installed/PFUNIT-4.2
+      PFUNIT_DIR: /home/runner/work/Fortran-CodeCoverage/Fortran-CodeCoverage/pFUnit/build/installed/PFUNIT-4.2
     
     name: Intel Fortran
     steps:
