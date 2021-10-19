@@ -15,6 +15,7 @@ jobs:
     env:
       FC: ifort
       CC: icc
+      PFUNIT_DIR: $HOME/pFUnit/build/installed/PFUNIT-4.2
     
     name: Intel Fortran
     steps:
@@ -53,5 +54,13 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake ..
+          cmake .. -DCMAKE_PREFIX_PATH=$PFUNIT_DIR
           make -j$(nproc)
+          
+          export PROF_DIR=./coverage
+          mkdir -p coverage
+          ctest --verbose
+
+          profmerge *.dyn
+          cd coverage
+          codecov -prj Fortran-CodeCoverage -spi ../pgopti.spi -dpi pgopti.dpi -comp ../../comp_file.txt -ccolor '#d7fad2'
