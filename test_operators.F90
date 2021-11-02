@@ -19,7 +19,6 @@ contains
    
    
    @test
-   @disable
    subroutine test_subtract_numbers()
 
       real(8) :: res
