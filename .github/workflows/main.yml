@@ -22,6 +22,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
+      - name: Install lcov
+        run: |
+          sudo apt install lcov
+          
       - name: Install pFUnit
         run: |
           git clone https://github.com/Goddard-Fortran-Ecosystem/pFUnit
@@ -40,10 +44,21 @@ jobs:
           cmake .. -DCMAKE_PREFIX_PATH=$PFUNIT_DIR
           make -j$(nproc)
           
-      - name: Tests
+      - name: Tests and coverage
         run: |
           cd build
           ctest --verbose
+          cd CMakeFiles/operators.dir/
+          lcov --gcov-tool gcov-9 --capture --directory . --output-file covered.info
+          lcov --gcov-tool gcov-9 --capture -i --directory . --output-file uncovered.info
+          lcov -a covered.info -a uncovered.info --output-file result.info
+          genhtml --output-directory ../../coverage result.info
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report-gfortran
+          path: build/coverage/
   
   Intel:
     runs-on: ubuntu-20.04
@@ -108,5 +123,5 @@ jobs:
       - name: Archive code coverage results
         uses: actions/upload-artifact@v2
         with:
-          name: code-coverage-report
+          name: code-coverage-report-ifort
           path: build/coverage/
