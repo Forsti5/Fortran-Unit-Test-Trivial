@@ -30,3 +30,19 @@ sudo port install lcov
 ```
 
 To build, execute the test and generating of the coverage files, use the bash scripts `build_gfortran.x` or `build_ifort.x`, depending on the compiler you want to use. These scripts require a correct set PFUNIT_DIR environment variable. There is also a workflow implemented, which saves the coverage reports as an artifact, see https://github.com/Forsti5/Fortran-Unit-Test-Trivial/actions/runs/1413629312 and https://github.com/Forsti5/Fortran-Unit-Test-Trivial/blob/main/.github/workflows/main.yml.
+
+### Executing the test
+
+To run the test, you can use ctest or the executable.
+
+With ctest:
+```
+cd build
+ctest --verbose
+```
+
+With the executable:
+```
+cd build
+./test_operators
+```
