@@ -2,6 +2,10 @@
 
 This example shows a simple unit test in Fortran made with [pFUnit](https://github.com/Goddard-Fortran-Ecosystem/pFUnit). The output is the test result and the code coverage. 
 
+## Summary
+
+In the file [`operators.f90`](https://github.com/Forsti5/Fortran-Unit-Test-Trivial/blob/main/operators.F90) are two subroutines, one which adds two real values and one which subtracts two real values. In the file [`test_operators.f90`](https://github.com/Forsti5/Fortran-Unit-Test-Trivial/blob/main/test_operators.F90) are the tests for the two subroutines. The [cmake file](https://github.com/Forsti5/Fortran-Unit-Test-Trivial/blob/main/CMakeLists.txt) includes the information, how to build and link the test executable.
+
 ## Building
 
 The program can be built with `cmake`. 
