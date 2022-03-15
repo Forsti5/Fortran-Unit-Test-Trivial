@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-20.04
     
     env:
-      FC: gfortran-10
+      FC: gfortran
       PFUNIT_DIR: /home/runner/work/Fortran-Unit-Test-Trivial/Fortran-Unit-Test-Trivial/pFUnit/build/installed/PFUNIT-4.2
       PFUNIT_TEST: "TRUE"
     
