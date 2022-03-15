@@ -42,7 +42,7 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake .. -DCMAKE_PREFIX_PATH=$PFUNIT_DIR
+          cmake .. -DCMAKE_PREFIX_PATH=$PFUNIT_DIR --debug-output
           make -j$(nproc)
           
       - name: Tests and coverage
