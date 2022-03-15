@@ -22,9 +22,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
-      - name: Install lcov
+      - name: Install dependencies
         run: |
           sudo apt install lcov
+          sudo apt install gfortran-9
           
       - name: Install pFUnit
         run: |
