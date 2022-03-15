@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-20.04
     
     env:
-      FC: gfortran-9
+      FC: gfortran-10
       PFUNIT_DIR: /home/runner/work/Fortran-Unit-Test-Trivial/Fortran-Unit-Test-Trivial/pFUnit/build/installed/PFUNIT-4.2
       PFUNIT_TEST: "TRUE"
     
@@ -25,7 +25,6 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt install lcov
-          sudo apt install build-essential
           
       - name: Install pFUnit
         run: |
