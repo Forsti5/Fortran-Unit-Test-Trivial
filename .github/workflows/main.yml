@@ -25,6 +25,7 @@ jobs:
       - name: Install lcov
         run: |
           sudo apt install lcov
+          cmake --version
           
       - name: Install pFUnit
         run: |
