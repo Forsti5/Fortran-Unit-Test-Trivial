@@ -25,12 +25,12 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt install lcov
+          sudo apt install openmpi-bin
           
       - name: Install pFUnit
         run: |
           git clone https://github.com/Goddard-Fortran-Ecosystem/pFUnit
           cd pFUnit
-          git reset --hard 47b3b0ab17043764f984f1413ff33fe8681cde4f
           mkdir -p build
           cd build
           cmake ..
