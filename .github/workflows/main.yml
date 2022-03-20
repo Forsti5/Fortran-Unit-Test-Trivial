@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt install lcov
-          sudo apt install openmpi-bin
+          # sudo apt install openmpi-bin
           
       - name: Install pFUnit
         run: |
