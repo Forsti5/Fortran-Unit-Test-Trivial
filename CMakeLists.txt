@@ -4,9 +4,20 @@ project (Fortran-CodeCoverage
   VERSION 1.0.0
   LANGUAGES Fortran)
 
+include(AddGitSubmodule.cmake)
+find_package(Git REQUIRED)
+
+if(NOT DEFINED ENV{PFUNIT_DIR})
+  message(STATUS "PFUNIT_DIR environment variable not set.")
+  message(STATUS "Installing pFUnit and setting PFUNIT_DIR.")
+  set(PFUNIT_DIR ${CMAKE_CURRENT_BINARY_DIR}/external/pFUnit/)
+  add_git_submodule(${PROJECT_SOURCE_DIR}/external/pFUnit/)
+else()
+  include_directories($ENV{PFUNIT_DIR})
+endif()
+
 find_package(PFUNIT REQUIRED)
 enable_testing()
-
 
 if(CMAKE_Fortran_COMPILER_ID MATCHES Intel)
    add_compile_options(-prof-gen=srcpos)
