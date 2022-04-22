@@ -15,7 +15,7 @@ make -j
 ctest --verbose
 cd CMakeFiles/operators.dir/
 
-lcov --gcov-tool gcov-9 --capture --directory . --output-file covered.info
-lcov --gcov-tool gcov-9 --capture -i --directory . --output-file uncovered.info
+lcov --gcov-tool gcov --capture --directory . --output-file covered.info
+lcov --gcov-tool gcov --capture -i --directory . --output-file uncovered.info
 lcov -a covered.info -a uncovered.info --output-file result.info
 genhtml --output-directory ../../coverage result.info
