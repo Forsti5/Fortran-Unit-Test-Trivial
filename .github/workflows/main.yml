@@ -14,7 +14,7 @@ jobs:
     
     env:
       FC: gfortran
-      PFUNIT_DIR: /home/runner/work/Fortran-Unit-Test-Trivial/Fortran-Unit-Test-Trivial/pFUnit/build/installed/PFUNIT-4.4
+      PFUNIT_DIR: /home/runner/work/Fortran-Unit-Test-Trivial/Fortran-Unit-Test-Trivial/pFUnit/build/installed/PFUNIT-4.5
       PFUNIT_TEST: "TRUE"
     
     name: gfortran
@@ -54,7 +54,7 @@ jobs:
     env:
       FC: ifort
       CC: icc
-      PFUNIT_DIR: /home/runner/work/Fortran-Unit-Test-Trivial/Fortran-Unit-Test-Trivial/pFUnit/build/installed/PFUNIT-4.4
+      PFUNIT_DIR: /home/runner/work/Fortran-Unit-Test-Trivial/Fortran-Unit-Test-Trivial/pFUnit/build/installed/PFUNIT-4.5
       PFUNIT_TEST: "TRUE"
     
     name: Intel Fortran
