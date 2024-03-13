@@ -10,17 +10,17 @@ on:
 
 jobs:
   GNU:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     
     env:
       FC: gfortran
-      PFUNIT_DIR: /home/runner/work/Fortran-Unit-Test-Trivial/Fortran-Unit-Test-Trivial/pFUnit/build/installed/PFUNIT-4.7
+      PFUNIT_DIR: /home/runner/work/Fortran-Unit-Test-Trivial/Fortran-Unit-Test-Trivial/pFUnit/build/installed/PFUNIT-4.9
       PFUNIT_TEST: "TRUE"
     
     name: gfortran
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
       - name: Install dependencies
         run: |
@@ -43,34 +43,46 @@ jobs:
           ./build_gfortran.sh
 
       - name: Archive code coverage results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: code-coverage-report-gfortran
           path: build/coverage/
   
   Intel:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     
     env:
-      FC: ifort
-      CC: icc
-      PFUNIT_DIR: /home/runner/work/Fortran-Unit-Test-Trivial/Fortran-Unit-Test-Trivial/pFUnit/build/installed/PFUNIT-4.7
+      FC: ifx
+      CC: icx
+      PFUNIT_DIR: /home/runner/work/Fortran-Unit-Test-Trivial/Fortran-Unit-Test-Trivial/pFUnit/build/installed/PFUNIT-4.9
       PFUNIT_TEST: "TRUE"
     
     name: Intel Fortran
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Install Intel compilers
+      # Taken from https://gist.github.com/scivision/d94bb10a01fa3b8ed0c9a93ee16318ba
+      - name: Intel Apt repository
+        timeout-minutes: 1
         run: |
-          cd /tmp
-          wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-          sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-          rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
-          sudo add-apt-repository "deb https://apt.repos.intel.com/oneapi all main"
-          sudo apt install --no-install-recommends intel-oneapi-compiler-fortran intel-oneapi-mpi \
-            intel-oneapi-compiler-dpcpp-cpp-and-cpp-classic intel-oneapi-mpi-devel
+          wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
+          sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
+          rm GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
+          echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+          sudo apt-get update
+        
+      - name: Install Intel oneAPI compilers
+        timeout-minutes: 5
+        run: sudo apt-get install intel-oneapi-compiler-fortran intel-oneapi-compiler-dpcpp-cpp 
+
+      # optional
+      #- name: Install Intel MPI and MKL
+      #  timeout-minutes: 5
+      #  run: intel-oneapi-mpi intel-oneapi-mpi-devel intel-oneapi-mkl
+
+      - name: Setup Intel oneAPI environment
+        run: |
           source /opt/intel/oneapi/setvars.sh
           printenv >> $GITHUB_ENV
       
@@ -95,7 +107,7 @@ jobs:
           ./build_ifort.sh          
 
       - name: Archive code coverage results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: code-coverage-report-ifort
+          name: code-coverage-report-ifx
           path: build/coverage/
