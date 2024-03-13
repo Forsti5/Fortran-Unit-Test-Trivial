@@ -9,7 +9,7 @@ enable_testing()
 
 
 if(CMAKE_Fortran_COMPILER_ID MATCHES Intel)
-   add_compile_options(-prof-gen=srcpos)
+   add_compile_options(-fprofile-generate=srcpos)
 endif()
 
 add_library(operators

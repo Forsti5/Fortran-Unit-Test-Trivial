@@ -5,7 +5,7 @@ then
     rm -rf build
 fi
 
-export FC=ifort
+export FC=ifx
 
 mkdir -p build
 cd build

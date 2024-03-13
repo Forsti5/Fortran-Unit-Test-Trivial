@@ -104,7 +104,7 @@ jobs:
           
       - name: Run script (build, tests, coverage)
         run: |
-          ./build_ifort.sh          
+          ./build_ifx.sh          
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v4
